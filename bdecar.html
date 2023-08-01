@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>비덱카 견적 프로그램</title>
+
+</head>
+
+<body>
+
+
+
+	<script laguage="javascript">
+        
+
+		function cal(cal) {
+
+
+
+			var p1 = parseInt(document.getElementById("calc1").value);
+			var p2 = parseInt(document.getElementById("calc2").value);
+			var p7 = parseInt(document.getElementById("calc7").value)
+
+            var p3 = parseInt(document.getElementById("usd").value);
+            
+            var cif;
+            var tariff;
+            var sobisae;
+            var education;
+            var vat;
+
+			
+            var testnum;
+            
+			if (cal == '+') {
+              
+                
+                cif = (p1 + p2 + p7 + 1000) * p3;
+               
+                sobisae = (cif) * 0.05;
+                education = sobisae * 0.3;
+                vat = (cif + sobisae + education) * 0.1;
+                
+                testnum = cif+sobisae+education+vat;
+                
+                testnum = Math.floor(testnum) + 6500000;
+                
+                testnum = addComma(testnum);
+                
+				document.getElementById("calc3").value= testnum;
+                
+                
+
+			} else if (cal == '-') {
+
+                cif = (p1 + p2 + p7 + 1000) * p3;
+                tariff = cif * 0.08;
+                sobisae = (cif+tariff) * 0.05;
+                education = sobisae * 0.3;
+                vat = (cif + tariff + sobisae + education) * 0.1;
+                
+                testnum = cif+tariff+sobisae+education+vat;
+                
+                testnum = Math.floor(testnum) + 6500000;
+                
+                testnum = addComma(testnum);
+                
+				document.getElementById("calc3").value= testnum;
+                
+                
+
+			}
+
+		}
+        
+        
+        function addComma(num) {
+          var regexp = /\B(?=(\d{3})+(?!\d))/g;
+          return num.toString().replace(regexp, ',');
+        }
+
+		
+
+		function reset(){
+
+			document.getElementById("calc1").value = "";
+
+			document.getElementById("calc2").value = "";
+
+			document.getElementById("calc3").value = "";
+
+		}
+
+	</script>
+
+	<h1>견적 프로그램</h1>
+
+	<h2>아래 항목을 채워주세요.</h2>
+
+	<h3>인증비는 변동될 수 있습니다/슈퍼카의 경우 인증비 추가로 700~1000만원 더하시면 됩니다. </h3>
+	<h3>수입 업무 대행비 별도 입니다. 아래 금액은 예상금액입니다. </h3>
+
+	<br>
+
+    
+
+
+<td>적용환율</td>
+
+<td><input type="text" id="usd"></td>
+
+
+<td>차량금액</td>
+
+<td><input type="text" id="calc1"></td>
+
+
+<td>차량 위치 </td>
+<select name="location", id="calc2">
+<option value="">차량 위치 선택</option>
+<option value="2000">공항과의 거리 500km 이상</option>
+<option value="1500">공항과의 거리 100~499km</option>
+<option value="1000">공항과의 거리 100km 이내</option>
+</select>
+
+
+<td>항공/선박 </td>
+<select name="freight", id="calc7">
+<option value="">운송 방법 선택</option>
+<option value="8000">일반 항공</option>
+<option value="15000">대한항공/아시아나항공</option>
+<option value="3200">해상운송</option>
+</select>
+    
+
+
+<td><b>결과값</b></td>
+<td><input type="text" id="calc3"></td>
+
+
+
+	<button id="button1" onclick="cal('+')">FTA 적용</button>
+
+	<button id="button2" onclick="cal('-')">FTA 미적용</button>
+
+	<button id="button5" onclick="reset()">취소</button>
+
+</body>
+
+</html>
